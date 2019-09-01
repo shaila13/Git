@@ -1,0 +1,161 @@
+2. Merge: Fast-Forward
+Creamos un archivo villanos.md
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+$ git status -sb
+## master
+?? villanos.md
+
+Creamos una rama --> $ git branch rama-villanos
+Para comprobar las ramas que hay --> $ git branch
+* master (En verde y con asterisco aparece la rama en la que estamos)
+  rama-villanos
+
+Para movernos a una rama
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+$ git checkout rama-villanos
+Switched to branch 'rama-villanos'
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (rama-villanos)
+$ git branch
+  master
+* rama-villanos
+
+$ git status -sb (También nos dice en que rama estamos)
+## rama-villanos
+?? villanos.md
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (rama-villanos)
+$ git add -A
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (rama-villanos)
+$ git commit -m "Agregando villanos"
+[rama-villanos 92fc95d] Agregando villanos
+ 1 file changed, 4 insertions(+)
+ create mode 100644 villanos.md
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (rama-villanos)
+$ git status -sb
+## rama-villanos
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (rama-villanos)
+$ git lg
+* 92fc95d (HEAD -> rama-villanos) Agregando villanos
+* 1b371b5 (master) Agregando gitignore
+* 0634358 Borramos la historia de batman
+* bb469a9 Cambiamos el nombre de la historia de superman
+* ba92f4b Borrando archivo salvar-mundo.txt
+* e4edd2e Renombrando archivo a salvar-mundo.txt
+* f5d0c8f Creando el archivo destruir el mundo
+* 129214a Agregamos a Linterna Verde y a Robin
+* dbfc8bc Editamos el README
+* 1580dde Agregamos las historias de los heroes
+* 696a56f Agregamos las ciudades
+* e235b6f Agregamos los heroes
+* 36a5061 Agregamos las misiones
+* dec0015 Se agrego el archivo README
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (rama-villanos)
+$ git status -sb
+## rama-villanos
+ M villanos.md
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (rama-villanos)
+$ git commit -am "Agregamos a flash reverso"
+[rama-villanos f155310] Agregamos a flash reverso
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (rama-villanos)
+$ git lg
+* f155310 (HEAD -> rama-villanos) Agregamos a flash reverso
+* 92fc95d Agregando villanos
+* 1b371b5 (master) Agregando gitignore
+* 0634358 Borramos la historia de batman
+* bb469a9 Cambiamos el nombre de la historia de superman
+* ba92f4b Borrando archivo salvar-mundo.txt
+* e4edd2e Renombrando archivo a salvar-mundo.txt
+* f5d0c8f Creando el archivo destruir el mundo
+* 129214a Agregamos a Linterna Verde y a Robin
+* dbfc8bc Editamos el README
+* 1580dde Agregamos las historias de los heroes
+* 696a56f Agregamos las ciudades
+* e235b6f Agregamos los heroes
+* 36a5061 Agregamos las misiones
+* dec0015 Se agrego el archivo README
+
+PARA SABER LAS DIFERENCIAS ENTRE UNA RAMA Y OTRA
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (rama-villanos)
+$ git diff rama-villanos master
+diff --git a/villanos.md b/villanos.md
+deleted file mode 100644
+index b9dbea8..0000000
+--- a/villanos.md
++++ /dev/null
+@@ -1,5 +0,0 @@
+-# Villanos
+-
+-1. Lex Luthor
+-2. Joker
+-3. Flash Reverso
+\ No newline at end of file
+
+PARA UNIR LAS RAMAS TENEMOS QUE ESTAR EN LA RAMA EN LA CUAL NOSOTROS QUEREMOS FUSIONAR ALGO (VAMOS A LA MASTER)
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (rama-villanos)
+$ git checkout master
+Switched to branch 'master'
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+$ git lg
+* f155310 (rama-villanos) Agregamos a flash reverso
+* 92fc95d Agregando villanos
+* 1b371b5 (HEAD -> master) Agregando gitignore HEAD apunta al ultimo commit en la rama en la que estamos
+* 0634358 Borramos la historia de batman
+* bb469a9 Cambiamos el nombre de la historia de superman
+* ba92f4b Borrando archivo salvar-mundo.txt
+* e4edd2e Renombrando archivo a salvar-mundo.txt
+* f5d0c8f Creando el archivo destruir el mundo
+* 129214a Agregamos a Linterna Verde y a Robin
+* dbfc8bc Editamos el README
+* 1580dde Agregamos las historias de los heroes
+* 696a56f Agregamos las ciudades
+* e235b6f Agregamos los heroes
+* 36a5061 Agregamos las misiones
+* dec0015 Se agrego el archivo README
+
+Hacemos el merge --> $ git merge rama-villanos
+
+Updating 1b371b5..f155310
+Fast-forward
+ villanos.md | 5 +++++
+ 1 file changed, 5 insertions(+)
+ create mode 100644 villanos.md
+
+$ git lg
+* f155310 (HEAD -> master, rama-villanos) Agregamos a flash reverso
+* 92fc95d Agregando villanos
+* 1b371b5 Agregando gitignore
+* 0634358 Borramos la historia de batman
+* bb469a9 Cambiamos el nombre de la historia de superman
+* ba92f4b Borrando archivo salvar-mundo.txt
+* e4edd2e Renombrando archivo a salvar-mundo.txt
+* f5d0c8f Creando el archivo destruir el mundo
+* 129214a Agregamos a Linterna Verde y a Robin
+* dbfc8bc Editamos el README
+* 1580dde Agregamos las historias de los heroes
+* 696a56f Agregamos las ciudades
+* e235b6f Agregamos los heroes
+* 36a5061 Agregamos las misiones
+* dec0015 Se agrego el archivo README
+
+UNA VER TERMINADO EL TRABAJO EN LA RAMA Y HECHO EL MERGE ELIMINAMOS LA RAMA
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+$ git branch
+* master
+  rama-villanos
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+$ git branch -d rama-villanos
+Deleted branch rama-villanos (was f155310).

@@ -1,0 +1,16 @@
+RAMAS, UNIONES, CONFLICTOS Y TAGS
+
+1. Introducción a los temas de la sección de ramas, uniones y conflictos
+Ramas: línea de tiempo de commits.
+Merge: Uniones. 3 tipos:
+		Fast-Forward --> se dispara cuando git detecta que NO hay cambios en la rama principal y 
+						 los cambios pueden ser integrados de manera "transparente" y cada uno de 
+						 los commits formará parte de la rama principal como si nunca nos hubieramos separado.
+		Union automática --> Git detecta que en la rama principal hubo cambios que la rama secundaria desconoce, 
+							 pero cuando hacemos merge git dice no hay conflictos y lo une de manera automática.
+		Uniones manual --> Git no lo puede hacer automáticamente, tenemos dos ramas, en la rama secundaria hay 
+							modificaciones que afectan las mismas líneas que en la rama master, cuando git lo intenta 
+							hacer, hay conflicto, git nos pide hacerlo a nosotros de forma manual, luego git crea un 
+							git nuevo, merche commit.
+
+

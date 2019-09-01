@@ -1,0 +1,308 @@
+UN POCO MÁS ALLÁ DE LOS FUNDAMENTOS DE GIT
+
+1. Diferencias entre commits y restauración de archivos
+
+PARA VER QUE ARCHIVOS HAN SIDO MODIFICADOS Y NO AÑADIDOS, este comando aparece 
+con una M en rojo o verde, según esté o no añadido, además de la rama --> $ git status -sb
+
+NOS INDICA QUE CAMBIOS HUBO EN EL ARCHIVO --> $ git diff
+VERIFICAR ARCHIVOS EN STAGE --> $ git diff --staged
+
+PARA SACAR EL ARCHIVO DEL STAGED --> $ git reset HEAD README.md 
+(HEAD --> apunta al último commit que hemos hecho)
+(HEAD^ --> apunta al commit anterior al último commit que hemos hecho)
+PARA REVERTIR LOS CAMBIOS --> $ git checkout -- README.md
+
+AÑADIENDO ARCHIVOS Y GUARDANDO CAMBIOS EN EL REPOSITORIO A LA VEZ --> $ git commit -am "README actual"
+
+REVERTIR COMENTARIO COMMIT --> $ git commit --amend -m "Actualizamos el README"
+
+AÑADIR CAMBIOS QUE SE NOS OLVIDARON AL COMMIT ANTERIOR --> $ git reset --soft HEAD^ 
+--> después de este nos saldrán MM README.md (primera M en verde, segunda en rojo)
+
+Preparando un repositorio para viajes en el tiempo
+
+$ git init
+$ git status -sb
+$ git add -A
+$ git status -sb
+$ git commit (se añade el commit sin comentario, que añadiremos después)
+Para grabar y salir :wq (primero esc)
+$ git add -- .
+$ git commit -m "Agregamos las misiones"
+$ git add -- .
+$ git commit -m "Agregamos los heroes"
+$ git add -- .
+$ git commit -m "Agregamos las ciudades"
+$ git add -- .
+$ git commit -m "Agregamos las ciudades" (mal)
+$ git commit --amend --> se abre un editor y escribimos --> Agregamos las historias de los heroes
+
+Hacemos modificaciones en el readme del proyecto
+$ git commit -am "Editamos el README"
+Hacemos modificaciones en heroes del proyecto
+$ git commit -am "Agregamos Superwoman a la lista de heroes"
+
+Añadimos un alias para facilitar el trabajo
+$ git config --global alias.lg "log --oneline --decorate --all --graph"
+
+$ git lg
+* e51991b (HEAD -> master) Agregamos Superwoman a la lista de heroes
+* dbfc8bc Editamos el README
+* 1580dde Agregamos las historias de los heroes
+* 696a56f Agregamos las ciudades
+* e235b6f Agregamos los heroes
+* 36a5061 Agregamos las misiones
+* dec0015 Se agrego el archivo README
+
+Volvemos atrás (varias maneras de hacerlo)
+$ git reset --soft dbfc8bc
+$ git status -sb
+## master
+M  heroes.md
+Añadimos dos héroes más a nuestro archivo
+
+$ git status -sb
+## master
+MM heroes.md
+
+$ git lg
+* dbfc8bc (HEAD -> master) Editamos el README
+* 1580dde Agregamos las historias de los heroes
+* 696a56f Agregamos las ciudades
+* e235b6f Agregamos los heroes
+* 36a5061 Agregamos las misiones
+* dec0015 Se agrego el archivo README
+
+$ git add -- .
+$ git status -sb
+## master
+M  heroes.md
+
+$ git commit -m "Agregamos a Linterna Verde y a Robin"
+
+$ git lg
+* 129214a (HEAD -> master) Agregamos a Linterna Verde y a Robin
+* dbfc8bc Editamos el README
+* 1580dde Agregamos las historias de los heroes
+* 696a56f Agregamos las ciudades
+* e235b6f Agregamos los heroes
+* 36a5061 Agregamos las misiones
+* dec0015 Se agrego el archivo README
+
+$ git reset --mixed 1580dde
+Unstaged changes after reset:
+M       README.md
+M       heroes.md
+
+$ git lg
+* 1580dde (HEAD -> master) Agregamos las historias de los heroes
+* 696a56f Agregamos las ciudades
+* e235b6f Agregamos los heroes
+* 36a5061 Agregamos las misiones
+* dec0015 Se agrego el archivo README
+
+$ git reset --hard 1580dde
+HEAD is now at 1580dde Agregamos las historias de los heroes
+ 
+$ git lg
+* 1580dde (HEAD -> master) Agregamos las historias de los heroes
+* 696a56f Agregamos las ciudades
+* e235b6f Agregamos los heroes
+* 36a5061 Agregamos las misiones
+* dec0015 Se agrego el archivo README
+
+$ git reset --hard 36a5061
+HEAD is now at 36a5061 Agregamos las misiones
+
+$ git reset --hard dec0015
+HEAD is now at dec0015 Se agrego el archivo README
+
+""Si ahora nos dicen que linterna verde y robin deben estar en el proyecto""
+(Git, que es muy listo siempre mantiene un registro del repositorio)
+
+$ git reflog
+
+dec0015 (HEAD -> master) HEAD@{0}: reset: moving to dec0015
+36a5061 HEAD@{1}: reset: moving to 36a5061
+1580dde HEAD@{2}: reset: moving to 1580dde
+1580dde HEAD@{3}: reset: moving to 1580dde
+129214a HEAD@{4}: commit: Agregamos a Linterna Verde y a Robin
+dbfc8bc HEAD@{5}: reset: moving to dbfc8bc
+e51991b HEAD@{6}: reset: moving to e51991b
+e51991b HEAD@{7}: reset: moving to e51991b
+e51991b HEAD@{8}: commit: Agregamos Superwoman a la lista de heroes
+dbfc8bc HEAD@{9}: commit: Editamos el README
+1580dde HEAD@{10}: commit (amend): Agregamos las historias de los heroes
+856ddce HEAD@{11}: commit: Agregamos las ciudades
+696a56f HEAD@{12}: commit: Agregamos las ciudades
+e235b6f HEAD@{13}: commit: Agregamos los heroes
+36a5061 HEAD@{14}: commit: Agregamos las misiones
+dec0015 (HEAD -> master) HEAD@{15}: commit (initial): Se agrego el archivo README
+
+$ git reset --hard 129214a
+HEAD is now at 129214a Agregamos a Linterna Verde y a Robin
+
+$ git lg
+* 129214a (HEAD -> master) Agregamos a Linterna Verde y a Robin
+* dbfc8bc Editamos el README
+* 1580dde Agregamos las historias de los heroes
+* 696a56f Agregamos las ciudades
+* e235b6f Agregamos los heroes
+* 36a5061 Agregamos las misiones
+* dec0015 Se agrego el archivo README
+
+2. Cambiar el nombre y eliminar archivos mediante git
+
+$ git status -sb
+## master
+Creamos un archivo destruir-mundo.txt
+
+$ git status -sb
+## master
+?? destruir-mundo.txt
+
+$ git add -A
+$ git commit -m "Creando el archivo destruir el mundo"
+$ git lg
+* f5d0c8f (HEAD -> master) Creando el archivo destruir el mundo
+* 129214a Agregamos a Linterna Verde y a Robin
+* dbfc8bc Editamos el README
+* 1580dde Agregamos las historias de los heroes
+* 696a56f Agregamos las ciudades
+* e235b6f Agregamos los heroes
+* 36a5061 Agregamos las misiones
+* dec0015 Se agrego el archivo README
+
+¿Cómo renombrar el archivo? (mv de moverlo, pero a la vez que lo mueves le cambias el nombre)
+$ git mv destruir-mundo.txt salvar-mundo.txt
+$ git status -sb
+## master
+R  destruir-mundo.txt -> salvar-mundo.txt (R de rename)
+
+$ git lg
+* e4edd2e (HEAD -> master) Renombrando archivo a salvar-mundo.txt
+* f5d0c8f Creando el archivo destruir el mundo
+* 129214a Agregamos a Linterna Verde y a Robin
+* dbfc8bc Editamos el README
+* 1580dde Agregamos las historias de los heroes
+* 696a56f Agregamos las ciudades
+* e235b6f Agregamos los heroes
+* 36a5061 Agregamos las misiones
+* dec0015 Se agrego el archivo README
+
+Para eliminar el archivo
+$ git rm salvar-mundo.txt
+
+rm 'salvar-mundo.txt'
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+$ git status -sb
+## master
+D  salvar-mundo.txt (D de deleted)
+
+Hay que confirmar que se está borrando
+$ git commit -m "Borrando archivo salvar-mundo.txt"
+[master ba92f4b] Borrando archivo salvar-mundo.txt
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ delete mode 100644 salvar-mundo.txt
+
+$ git lg
+* ba92f4b (HEAD -> master) Borrando archivo salvar-mundo.txt
+* e4edd2e Renombrando archivo a salvar-mundo.txt
+* f5d0c8f Creando el archivo destruir el mundo
+* 129214a Agregamos a Linterna Verde y a Robin
+* dbfc8bc Editamos el README
+* 1580dde Agregamos las historias de los heroes
+* 696a56f Agregamos las ciudades
+* e235b6f Agregamos los heroes
+* 36a5061 Agregamos las misiones
+* dec0015 Se agrego el archivo README
+
+Renombramos en la carpeta historia superman.historia.md a superman.md
+
+$ git status -sb
+## master
+ D historia/superman.historia.md (D en rojo)
+?? historia/superman.md
+
+(Para actualizar todo)
+$ git add -u
+$ git status -sb
+## master
+D  historia/superman.historia.md (D pasa de rojo a verde)
+?? historia/superman.md
+
+$ git add -A
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+$ git status -sb
+## master
+R  historia/superman.historia.md -> historia/superman.md
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        renamed:    historia/superman.historia.md -> historia/superman.md
+
+$ git commit -m "Cambiamos el nombre de la historia de superman"
+[master bb469a9] Cambiamos el nombre de la historia de superman
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ rename historia/{superman.historia.md => superman.md} (100%)
+
+Borramos manualmente la historia de batman
+$ git -u
+unknown option: -u
+usage: git [--version] [--help] [-C <path>] [-c <name>=<value>]
+           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
+           <command> [<args>]
+
+$ git add -u
+$ git status -sb
+## master
+D  historia/batman.historia.md
+
+$ git commit -m "Borramos la historia de batman"
+[master 0634358] Borramos la historia de batman
+ 1 file changed, 5 deletions(-)
+ delete mode 100644 historia/batman.historia.md
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+$ git lg
+* 0634358 (HEAD -> master) Borramos la historia de batman
+* bb469a9 Cambiamos el nombre de la historia de superman
+* ba92f4b Borrando archivo salvar-mundo.txt
+* e4edd2e Renombrando archivo a salvar-mundo.txt
+* f5d0c8f Creando el archivo destruir el mundo
+* 129214a Agregamos a Linterna Verde y a Robin
+* dbfc8bc Editamos el README
+* 1580dde Agregamos las historias de los heroes
+* 696a56f Agregamos las ciudades
+* e235b6f Agregamos los heroes
+* 36a5061 Agregamos las misiones
+* dec0015 Se agrego el archivo README
+
+3. Ignorando archivos que no deseamos
+
+Agregamos manualmente un archivo data.log
+
+$ git status -sb
+## master
+?? data.log
+
+Para obviar data.log, ya que sería una especie de archivo de logs tenemos que crearnos un archivo .gitignore
+Añadimos los archivos que no queremos que se suban al repositorio
+*.log
+node_modules/
+
+$ git status -sb
+## master
+?? .gitignore
+
+$ git add -A
+
+$ git commit -m "Agregando gitignore"
+[master 1b371b5] Agregando gitignore
+ 1 file changed, 3 insertions(+)
+ create mode 100644 .gitignore

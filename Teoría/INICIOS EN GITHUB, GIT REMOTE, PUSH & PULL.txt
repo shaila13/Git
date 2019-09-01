@@ -1,0 +1,116 @@
+INICIOS EN GITHUB, GIT REMOTE, PUSH & PULL
+1. PUSH A GITHUB
+
+$ git remote add origin https://github.com/Kleritch/udemy-heroes.git
+
+$ git remote  -v (comprobar los remotos)
+
+origin https://github.com/Kleritch/udemy-heroes.git (fetch)
+origin https://github.com/Kleritch/udemy-heroes.git (push)
+
+$ git push -u origin master 
+(-u nos permite cuando volvamos a hacer un push no poner la rama)
+(origin es el nombre del repositorio)
+(master Rama que deseamos enviar)
+
+Dentro del proyecto
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/Proyectos/demo-09 (master)
+$ git remote add origin https://github.com/shaila13/udemy-heroes.git
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/Proyectos/demo-09 (master)
+$ git remote
+origin
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/Proyectos/demo-09 (master)
+$ git remote -v
+origin  https://github.com/shaila13/udemy-heroes.git (fetch)
+origin  https://github.com/shaila13/udemy-heroes.git (push)
+
+$ git push -u origin master
+
+2. PUSH DE LOS TAGS DE NUESTRO REPOSITORIO
+
+Los tags no se suben automaticamente, lo tenemos que hacer nosotros mediante:
+
+$ git push --tags
+
+3. PULL DE LOS ÚLTIMOS CAMBIOS EN EL REPOSITORIO DE GITHUB
+
+Hacemos modificaciones chorras en readme.md en github y luego en consola:
+$ git pull
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From https://github.com/shaila13/udemy-heroes
+   c3e22b9..f9a8f48  master     -> origin/master
+Updating c3e22b9..f9a8f48
+Fast-forward
+ README.md | 3 +++
+ 1 file changed, 3 insertions(+)
+
+4. CLONAR UN REPOSITORIO
+
+$ git clone https://github.com/shaila13/udemy-heroes.git
+
+5. GIT FETCH VS GIT PULL
+
+$ git status -sb
+
+$ git commit -am "Borrando mensaje de Github"
+
+Hacemos un git push
+$ git push --> ahora mismo sale un error --> ![rejected]
+
+$ git fetch (hace el pull pero no el merge)
+
+Ahora haríamos un git pull o un merge, el primero más rápido
+
+$ git pull
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

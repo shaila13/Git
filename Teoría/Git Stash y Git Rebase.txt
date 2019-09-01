@@ -1,0 +1,339 @@
+Git Stash
+
+1. INTRODUCCIÓN AL STASH
+Guardar lo que se está trabajando en un "lugar" para dejarlo para 
+después y resolver los problemas que te diga el jefe
+
+2. UTILIZANDO EL STASH
+ Modificamos el archivo misiones.
+ 
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git status -sb
+## master
+ M misiones.md
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git stash
+Saved working directory and index state WIP on master: 5440fe5 Resolviendo conflictos
+
+WIP --> work in progress
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git status -sb
+## master
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git lg
+*   d673a53 (refs/stash) WIP on master: 5440fe5 Resolviendo conflictos
+|\
+| * f178c08 index on master: 5440fe5 Resolviendo conflictos
+|/
+*   5440fe5 (HEAD -> master, tag: v1.0.0) Resolviendo conflictos
+|\
+| * 52c9666 Modificamos las misiones
+* | b936625 Actualizamos las misiones MASTER
+|/
+*   a4a9834 Merge branch 'rama-villano'
+|\
+| * b3e02bc Agregamos a doomsday
+* | 4c24baa Borre a los heroes que no son de DC
+|/
+* ad66a33 Agregamos al flash reverso
+* df6ed62 Agregando villanos
+* 62c8a10 Agregando el gitignore
+* ac0d374 Borramos la historia de batman
+* b4c748c Cambiamos el nombre de la historia de superman
+* d877f01 Borrando archivo salvar mundo
+* c9ee153 Renombrando archivo a salvar-mundo
+* fa3cd3a Creando el archivo destruir el mundo
+* 4e809d4 Agregamos a Linterna verde y a Robin
+* 345d7de (tag: v0.1.0) Editamos el readme.md
+* 860c6c2 Agregamos las historias de los heroes
+* bc1a1e5 Agregamos las ciudades
+* 6b8f60d Agregamos los heroes
+* da24862 Agregamos las misiones
+* 88a423d Se agrego el archivo readme
+
+PARA SABER LOS TRABAJOS QUE HAY EN PROGRESO
+$ git stash list
+stash@{0}: WIP on master: 5440fe5 Resolviendo conflictos
+
+(Podemos tener varios stash, lo más recomendable es que al volver al trabajo eliminemos el último stash)
+MODIFICAMOS EL README
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git status -sb
+## master
+ M README.md
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git commit -am "Modificaciones en el README"
+warning: LF will be replaced by CRLF in README.md.
+The file will have its original line endings in your working directory
+[master acacf88] Modificaciones en el README
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git status -sb
+## master
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git lg
+* acacf88 (HEAD -> master) Modificaciones en el README
+| *   d673a53 (refs/stash) WIP on master: 5440fe5 Resolviendo conflictos
+| |\
+|/ /
+| * f178c08 index on master: 5440fe5 Resolviendo conflictos
+|/
+*   5440fe5 (tag: v1.0.0) Resolviendo conflictos
+|\
+| * 52c9666 Modificamos las misiones
+* | b936625 Actualizamos las misiones MASTER
+|/
+*   a4a9834 Merge branch 'rama-villano'
+|\
+| * b3e02bc Agregamos a doomsday
+* | 4c24baa Borre a los heroes que no son de DC
+|/
+* ad66a33 Agregamos al flash reverso
+* df6ed62 Agregando villanos
+* 62c8a10 Agregando el gitignore
+* ac0d374 Borramos la historia de batman
+* b4c748c Cambiamos el nombre de la historia de superman
+* d877f01 Borrando archivo salvar mundo
+* c9ee153 Renombrando archivo a salvar-mundo
+* fa3cd3a Creando el archivo destruir el mundo
+* 4e809d4 Agregamos a Linterna verde y a Robin
+* 345d7de (tag: v0.1.0) Editamos el readme.md
+* 860c6c2 Agregamos las historias de los heroes
+* bc1a1e5 Agregamos las ciudades
+* 6b8f60d Agregamos los heroes
+* da24862 Agregamos las misiones
+* 88a423d Se agrego el archivo readme
+
+PARA RECUPERAR EL STASH --> $ git stash pop --> suceden dos cosas: 
+Extrae del stash todos los cambios pendientes y elimina de la lista el stash
+
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   misiones.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Dropped refs/stash@{0} (d673a53872655fcf2463553cd1b2f59bcf669e7e)
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git stash list
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git status -sb
+## master
+ M misiones.md
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git commit -am "Añadimos más misiones"
+[master 38dc414] Añadimos más misiones
+ 1 file changed, 2 insertions(+)
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git lg
+* 38dc414 (HEAD -> master) Añadimos más misiones
+* acacf88 Modificaciones en el README
+*   5440fe5 (tag: v1.0.0) Resolviendo conflictos
+|\
+| * 52c9666 Modificamos las misiones
+* | b936625 Actualizamos las misiones MASTER
+|/
+*   a4a9834 Merge branch 'rama-villano'
+|\
+| * b3e02bc Agregamos a doomsday
+* | 4c24baa Borre a los heroes que no son de DC
+|/
+* ad66a33 Agregamos al flash reverso
+* df6ed62 Agregando villanos
+* 62c8a10 Agregando el gitignore
+* ac0d374 Borramos la historia de batman
+* b4c748c Cambiamos el nombre de la historia de superman
+* d877f01 Borrando archivo salvar mundo
+* c9ee153 Renombrando archivo a salvar-mundo
+* fa3cd3a Creando el archivo destruir el mundo
+* 4e809d4 Agregamos a Linterna verde y a Robin
+* 345d7de (tag: v0.1.0) Editamos el readme.md
+* 860c6c2 Agregamos las historias de los heroes
+* bc1a1e5 Agregamos las ciudades
+* 6b8f60d Agregamos los heroes
+* da24862 Agregamos las misiones
+* 88a423d Se agrego el archivo readme
+
+3. CONFLICTOS CON EL STASH
+
+Vamos al archivo readme y modificamos # y escribimos un texto, creamos un stash
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git status -sb
+## master
+ M README.md
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git stash
+Saved working directory and index state WIP on master: 38dc414 Añadimos más misiones
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git status -sb
+## master
+ M README.md
+
+HACEMOS UN COMMIT
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git commit -am "Cambios de emergencia en el README"
+[master b8e0ef3] Cambios de emergencia en el README
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git lg
+* b8e0ef3 (HEAD -> master) Cambios de emergencia en el README
+| *   5393860 (refs/stash) WIP on master: 38dc414 Añadimos más misiones (TRABAJO PENDIENTE)
+| |\
+|/ /
+| * 720a76f index on master: 38dc414 Añadimos más misiones
+|/
+* 38dc414 Añadimos más misiones
+* acacf88 Modificaciones en el README
+*   5440fe5 (tag: v1.0.0) Resolviendo conflictos
+|\
+| * 52c9666 Modificamos las misiones
+* | b936625 Actualizamos las misiones MASTER
+|/
+*   a4a9834 Merge branch 'rama-villano'
+|\
+| * b3e02bc Agregamos a doomsday
+* | 4c24baa Borre a los heroes que no son de DC
+|/
+* ad66a33 Agregamos al flash reverso
+....COMMIT ANTERIORES...
+
+VOLVEMOS AL TRABAJO...
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git stash pop
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+The stash entry is kept in case you need it again.
+
+EN EL ARCHIVO README APARECE:
+
+<<<<<<< Updated upstream
+# Objetivos del repositorio
+=======
+# Objetivos
+>>>>>>> Stashed changes
+
+Este proyecto se encarga de manejar los planes de la liga de la justicia
+
+Lorem ipsum dolor sit amet consectetur adipiscing elit, convallis euismod porttitor per tristique non litora, cras nam pulvinar magnis cubilia curae. Nullam convallis enim congue id himenaeos magna arcu porta, mi placerat condimentum torquent justo hendrerit cum eros, tempor tristique habitasse nisi facilisi quis fermentum. Pellentesque posuere iaculis penatibus luctus parturient tempor enim ullamcorper, ultricies sodales malesuada quisque nascetur congue volutpat, pulvinar nostra ligula tortor molestie aliquam curabitur.
+....
+
+
+MODIFICAMOS EN EL README LO QUE NECESITEMOS Y SALVAMOS
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git status -sb
+## master
+UU README.md
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git commit -am "Retomando el trabajo que guarde en el stash del README"
+[master 4889ffc] Retomando el trabajo que guarde en el stash del README
+ 1 file changed, 4 insertions(+)
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git lg
+* 4889ffc (HEAD -> master) Retomando el trabajo que guarde en el stash del README (Todavía queda algo, deberemos hacer un drop)
+* b8e0ef3 Cambios de emergencia en el README
+| *   5393860 (refs/stash) WIP on master: 38dc414 Añadimos más misiones
+| |\
+|/ /
+| * 720a76f index on master: 38dc414 Añadimos más misiones
+|/
+* 38dc414 Añadimos más misiones
+* acacf88 Modificaciones en el README
+*   5440fe5 (tag: v1.0.0) Resolviendo conflictos
+|\
+| * 52c9666 Modificamos las misiones
+* | b936625 Actualizamos las misiones MASTER
+|/
+*   a4a9834 Merge branch 'rama-villano'
+|\
+| * b3e02bc Agregamos a doomsday
+* | 4c24baa Borre a los heroes que no son de DC
+|/
+* ad66a33 Agregamos al flash reverso
+....COMMIT ANTERIORES...
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git stash list
+stash@{0}: WIP on master: 38dc414 Añadimos más misiones
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git stash drop
+Dropped refs/stash@{0} (53938604958280de9308677ac8efad4981fd7ac6)
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git stash list
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-07 (master)
+$ git lg
+* 4889ffc (HEAD -> master) Retomando el trabajo que guarde en el stash del README
+* b8e0ef3 Cambios de emergencia en el README
+* 38dc414 Añadimos más misiones
+* acacf88 Modificaciones en el README
+*   5440fe5 (tag: v1.0.0) Resolviendo conflictos
+|\
+| * 52c9666 Modificamos las misiones
+* | b936625 Actualizamos las misiones MASTER
+|/
+*   a4a9834 Merge branch 'rama-villano'
+|\
+| * b3e02bc Agregamos a doomsday
+* | 4c24baa Borre a los heroes que no son de DC
+|/
+* ad66a33 Agregamos al flash reverso
+....COMMIT ANTERIORES...
+
+4. Más información sobre el Stash
+ 
+Toma algunos archivos y los coloca en un área temporal. 
+$ git stash y $ git stash save --> es lo mismo
+
+$ git stash apply --> Restaura el último registro en el stash
+
+$ git stash list --> Multiples entradas en el stash lo vemos con este comando.
+stash@{0}: WIP on master: 38dc414 Añadimos más misiones
+stash@{1}: WIP on master: 38dc414 Añadimos más misiones
+stash@{2}: WIP on master: 38dc414 Añadimos más misiones
+
+$ git stash apply stash@{1} --> Restaura un stash en concreto
+
+Cuando usamos el stash apply o en conflictos hay que usar --> $ git stash drop (Así borra la primera entrada, esta stash@{0})
+
+$ git stash drop stash@{1} --> Borra este en concreto
+
+$ git stash pop --> hace git stash apply y git stash drop
+
+KEEP INDEX --> guarda todo menos los archivos en el stage o en el escenario.
+$ git stash save --keep-index
+
+INCLUDE-UNTRACKED --> incluye todos los archivos, junto a los que git no le da seguimiento.
+$ git stash save --include-untracked
+
+$ git stash list --stat --> aparece más información
+$ git show stash --> nos muestra más información del último stash@
+$ git show stash@{1} --> nos muestra más información del stash@ concreto
+
+MENSAJES EN LOS Stash
+$ git stash save "Agregamos a loki en los villanos"
+$ git stash clear -->  Borra todas las entradas de stash NO PREGUNTA Y NO HAY MANERA RECUPERARLAS
+

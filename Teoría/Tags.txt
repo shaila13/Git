@@ -1,0 +1,73 @@
+5. Tags - Etiquetas
+Son una referencia a un commit específico en el tiempo, normalmente se usan para poner la version.
+
+6. Creando etiquetas - Tags
+
+Crear un tag --> $ git tag superRelease
+
+Ver tags --> $ git tag
+superRelease (esto no nos dice mucho)
+
+Borrar un tag --> $ git tag -d superRelease
+Deleted tag 'superRelease' (was 990a048)
+
+Otra manera de crear un tag
+$ git tag -a v1.0.0 -m "Version v1.0.0" (-a para que sea un tag anotado)
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+$ git tag
+v1.0.0
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+$ git lg
+*   990a048 (HEAD -> master, tag: v1.0.0) Resolviendo conflictos
+|\
+| * daf6850 Modificamos las misiones
+* | 6e69001 Actualizamos las misiones MASTER
+|/
+*   97d43db Merge branch 'rama-villano'
+|\
+| * 2131f8d Agregamos a Dooms
+* | 90a4819 Borramos a los heroes que no son de DC
+|/
+* f155310 Agregamos a flash reverso
+........
+
+$ git tag -a v0.1.0 dbfc8bc -m "Version alfa codigo"
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+$ git tag
+v0.1.0
+v1.0.0
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+$ git show v1.0.0
+tag v1.0.0
+Tagger: Shaila <shaila.perez@capgemini.com>
+Date:   Mon Aug 26 08:30:27 2019 +0200
+
+Version v1.0.0
+
+commit 990a0481c6e908a040d0537629a871bcfbb30932 (HEAD -> master, tag: v1.0.0)
+Merge: 6e69001 daf6850
+Author: Shaila <shaila.perez@capgemini.com>
+Date:   Mon Aug 26 08:18:32 2019 +0200
+
+    Resolviendo conflictos
+
+diff --cc misiones.md
+index cb9abe4,20c3009..fa27f1e
+--- a/misiones.md
++++ b/misiones.md
+@@@ -2,6 -2,4 +2,5 @@@
+
+  1. Acabar con el plan de Lex Luthor
+  2. Crear la liga de la justicia
+- 3. Buscar nuevos miembros que sean super heroes
++ 3. Buscar nuevos miembros para la liga
+ +4. Necesitamos más comida
+-
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+
+
+

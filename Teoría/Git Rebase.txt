@@ -1,0 +1,232 @@
+GIT REBASE - PARA REALIZAR CAMBIOS DE EMERGENCIA
+
+5. INTRODUCCIÓN AL GIT REBASE
+
+$ git rebase master --> crea un área temporal al que vamos a mover 
+los dos commits Luego mueve el puntero de la rama misiones al último 
+commit de la rama master y luego trae los dos commits que estaban en 
+el áera temporal.
+
+Rebase interactivo --> $ git rebase -i HEAD~3 (3 son los commits antes donde se quiere poner) 
+No necesariamente tiene que ser en HEAD, puede ser cualquiera.
+Lo que hace es crear un área temporal donde mueve los tres últimos commits en ese orden y luego 
+los regresa en el mismo orden.
+
+- Ordenar commits
+- Corregir mensajes de los commits
+- Unir commits
+- Separar commits
+
+6. REBASE - ACTUALIZANDO UNA RAMA
+ 
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-08 (master)
+$ git lg
+
+* 158ba9e (HEAD -> master) Se agrego a la liga: Volcán Negro
+* 300c014 Misiones nuevas agregadas
+| * 8e755a3 (rama-misiones-completadas) Actualizamos dos misiones completadas al momento
+| * cc55aaf Agregamos el archivo de las misiones completadas
+|/
+* acea380 Actualización de las misiones
+* 31efae8 Retomando el trabajo que guarde en el stash
+* 8239e26 Cambios de emergencia en el README
+* 7dd23f1 Agregamos más misiones
+* 5b0c87f Modificaciones en el README de emergencia
+*   5440fe5 (tag: v1.0.0) Resolviendo conflictos
+|\
+| * 52c9666 Modificamos las misiones
+* | b936625 Actualizamos las misiones MASTER
+|/
+*   a4a9834 Merge branch 'rama-villano'
+|\
+| * b3e02bc Agregamos a doomsday
+* | 4c24baa Borre a los heroes que no son de DC
+|/
+* ad66a33 Agregamos al flash reverso
+.....COMMITS ANTERIOES.....
+
+$ git branch
+
+* master
+  rama-misiones-completadas
+
+$ git checkout rama-misiones-completadas
+
+$ git rebase master
+
+First, rewinding head to replay your work on top of it...
+Applying: Agregamos el archivo de las misiones completadas
+Applying: Actualizamos dos misiones completadas al momento
+
+$ git lg
+
+* 781c08f (HEAD -> rama-misiones-completadas) Actualizamos dos misiones completadas al momento
+* 693da71 Agregamos el archivo de las misiones completadas
+* 158ba9e (master) Se agrego a la liga: Volcán Negro
+* 300c014 Misiones nuevas agregadas
+* acea380 Actualización de las misiones
+* 31efae8 Retomando el trabajo que guarde en el stash
+* 8239e26 Cambios de emergencia en el README
+* 7dd23f1 Agregamos más misiones
+* 5b0c87f Modificaciones en el README de emergencia
+*   5440fe5 (tag: v1.0.0) Resolviendo conflictos
+|\
+| * 52c9666 Modificamos las misiones
+* | b936625 Actualizamos las misiones MASTER
+|/
+*   a4a9834 Merge branch 'rama-villano'
+|\
+| * b3e02bc Agregamos a doomsday
+* | 4c24baa Borre a los heroes que no son de DC
+|/
+* ad66a33 Agregamos al flash reverso
+.....COMMITS ANTERIOES.....
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-08 (rama-misiones-completadas)
+$ git checkout master
+Switched to branch 'master'
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-08 (master)
+$ git merge rama-misiones-completadas
+Updating 158ba9e..781c08f
+Fast-forward
+ misiones-completadas.md | 4 ++++
+ 1 file changed, 4 insertions(+)
+ create mode 100644 misiones-completadas.md
+
+$ git lg
+* 781c08f (HEAD -> master, rama-misiones-completadas) Actualizamos dos misiones completadas al momento
+* 693da71 Agregamos el archivo de las misiones completadas
+* 158ba9e Se agrego a la liga: Volcán Negro
+* 300c014 Misiones nuevas agregadas
+* acea380 Actualización de las misiones
+* 31efae8 Retomando el trabajo que guarde en el stash
+* 8239e26 Cambios de emergencia en el README
+* 7dd23f1 Agregamos más misiones
+* 5b0c87f Modificaciones en el README de emergencia
+*   5440fe5 (tag: v1.0.0) Resolviendo conflictos
+|\
+| * 52c9666 Modificamos las misiones
+* | b936625 Actualizamos las misiones MASTER
+|/
+*   a4a9834 Merge branch 'rama-villano'
+|\
+| * b3e02bc Agregamos a doomsday
+* | 4c24baa Borre a los heroes que no son de DC
+|/
+.....COMMITS ANTERIOES.....
+
+$ git branch -d rama-misiones-completadas
+Deleted branch rama-misiones-completadas (was 781c08f).
+
+7. REBASE - SQUASH
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-08 (master)
+$ git status -sb
+## master
+ M misiones-completadas.md
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-08 (master)
+$ git commit -am "Actualizamos las misiones completadas"
+[master 02bcb2a] Actualizamos las misiones completadas
+ 1 file changed, 1 insertion(+)
+
+$ git rebase -i HEAD~4
+
+Se abre otra pantalla, van en orden ascendente los commits --> esc :wq y aparece otra pantalla para actualizar el mensaje del commit
+Utilizamos squash o s (quitamos pick en el commit y ponemos s)
+
+Escribimos --> Actualizamos la informacion de las misiones completadas --> esc :wq
+
+[detached HEAD 0263487] Actualizamos la informacion de las misiones completadas
+ Author: Strider <fernando.herrera85@gmail.com>
+ Date: Fri Jun 23 15:44:41 2017 -0600
+ 1 file changed, 4 insertions(+)
+Successfully rebased and updated refs/heads/master.
+
+8. REBASE - REWORD
+
+$ git rebase -i HEAD~1
+ 
+r 0263487 Actualizamos la informacion de las misiones completadas --> esc :wq
+
+En la siguiente pantalla --> Update: misiones completadas
+
+9. REBASE - EDIT
+
+$ git status -sb
+## master
+ M README.md
+ M misiones.md
+ M villanos.md
+
+$ git checkout -- misiones.md
+
+$ git status -sb
+## master
+ M README.md
+ M villanos.md
+
+$ git commit -am "commits"
+
+$ git rebase -i HEAD~2
+Stopped at 55d7e76...  commits
+You can amend the commit now, with
+
+$ git commit --amend
+
+Once you are satisfied with your changes, run
+
+$ git rebase --continue
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-08 (master|REBASE-i 2/2)
+$ git reset HEAD^
+Unstaged changes after reset:
+M       README.md
+M       villanos.md
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-08 (master|REBASE-i 2/2)
+$ git commit -m "Actualizaciones en readme"
+[detached HEAD f2d052c] Actualizaciones en readme
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+ rewrite README.md (81%)
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-08 (master|REBASE-i 2/2)
+$ git status -sb
+## HEAD (no branch)
+ M villanos.md
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-08 (master|REBASE-i 2/2)
+$ git commit -am "Actualizamos los villanos"
+[detached HEAD ad49c9c] Actualizamos los villanos
+ 1 file changed, 1 insertion(+)
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-08 (master|REBASE-i 2/2)
+$ git rebase continue
+fatal: It seems that there is already a rebase-merge directory, and
+I wonder if you are in the middle of another rebase.  If that is the
+case, please try
+        git rebase (--continue | --abort | --skip)
+If that is not the case, please
+        rm -fr ".git/rebase-merge"
+and run me again.  I am stopping in case you still have something
+valuable there.
+
+ANTERIOR MAL!!!!!
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-08 (master|REBASE-i 2/2)
+$ git rebase --continue
+Successfully rebased and updated refs/heads/master.
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-08 (master)
+
+
+
+
+
+
+
+
+
+
+

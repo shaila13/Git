@@ -1,0 +1,50 @@
+﻿PRIMEROS COMANDOS GIT. CONFIGURACIÓN DE GIT.
+( git config --global DOS RAYITAS, PALABRA. UNA LETRA)
+
+Listar configuración global --> $ git config --global --list
+
+Configurar nombre global --> $ git config --global user.name "Shaila"
+
+Configurar email global --> $ git config --global user.email shaila.perez@capgemini.com
+
+PARA ABRIR ARCHIVO CONFIGURACIÓN --> $ git config --global -e
+PARA SALIR SIN GRABAR --> :q enter
+PARA LISTAR ARCHIVO CONFIGURACIÓN --> $ git config --global -l
+
+PARA CREAR UN REPOSITORIO LOCAL--> $ git init
+
+PARA VER QUE ARCHIVOS HAN SIDO MODIFICADOS Y NO AÑADIDOS --> $ git status
+PARA VER QUE ARCHIVOS HAN SIDO MODIFICADOS Y NO AÑADIDOS, este comando aparece 
+con una M en rojo o verde, según esté o no añadido --> $ git status -s
+PARA VER QUE ARCHIVOS HAN SIDO MODIFICADOS Y NO AÑADIDOS, este comando aparece 
+con una M en rojo o verde, según esté o no añadido, además de la rama --> $ git status -s -b (branch)
+
+PARA AGREGAR TODOS LOS ARCHIVOS Y QUE GIT ESTÉ PENDIENTE DE LOS CAMBIOS --> $ git add . 
+
+GUARDANDO CAMBIOS EN EL REPOSITORIO --> $ git commit -m "Primer comit"
+
+RECONSTRUYE TODO EL PROYECTO A COMO ESTABA EN EL ÚLTIMO COMMIT --> $ git checkout -- .
+
+Crear archivo README.md en nuestro proyecto
+Añadir archivo README.md --> $ git add README.md
+Commit archivo README.md --> $ git commit -m "Archivo README creado"
+
+LOG DEL HISTORIAL DE COMMITS --> $ git log
+LOG DEL HISTORIAL DE COMMITS EN UNA LINEA --> $ git log --oneline
+
+Añadir archivos de un tipo --> $ git add *.png
+Añadir archivos de una carpeta --> $ git add css/
+Añadir archivos y luego excluir uno --> $ git add -A -----> $ git reset *.xml
+
+Añadir todos los txt de TODO el proyecto --> $ git add "*.txt"
+Añadir todos los txt en el directorio actual --> $ git add *.txt
+Añadir todos los archivos --> $ git add --all
+Añadir todos los txt en el directorio actual --> $ git add *.txt
+Añadir todos los archivos que listemos --> $ git add <lista de archivos>
+Añadir todos los pdf dentro de la carpeta pdfs --> $ git add pdfs/*.pdf
+Añadir todos los archivos dentro de la carpeta pdfs/ --> $ git add pdfs/
+
+
+CREAR ALIAS PARA NUESTROS COMANDOS
+--> $ git config --global alias.lg "log --oneline --decorate --all --graph"
+--> $ git config --global alias.s "status -s -b"

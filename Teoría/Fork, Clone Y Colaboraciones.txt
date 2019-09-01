@@ -1,0 +1,95 @@
+FORK, CLONE Y COLABORACIONES
+
+1. CLONING Y FORK
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/Proyectos/legion-del-mal (master)
+$ git status -sb
+## master...origin/master
+ M miembros.md
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/Proyectos/legion-del-mal (master)
+$ git commit -am "Borramos al espantapájaros"
+[master 2de605a] Borramos al espantapájaros
+ 1 file changed, 1 deletion(-)
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/Proyectos/legion-del-mal (master)
+$ git push
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 297 bytes | 148.00 KiB/s, done.
+Total 3 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To https://github.com/shaila13/legion-del-mal.git
+   392d44f..2de605a  master -> master
+
+2. PULL REQUEST
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/Proyectos/legion-del-mal (master)
+$ git remote -v
+origin  https://github.com/shaila13/legion-del-mal.git (fetch)
+origin  https://github.com/shaila13/legion-del-mal.git (push)
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/Proyectos/legion-del-mal (master)
+$ git status -sb
+## master...origin/master
+ D aspirantes/striderx2.md
+?? aspirantes/shaila13.md
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/Proyectos/legion-del-mal (master)
+$ git add .
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/Proyectos/legion-del-mal (master)
+$ git commit -m "Solicitus de shaila13"
+[master c8f969f] Solicitus de shaila13
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+ create mode 100644 aspirantes/shaila13.md
+ delete mode 100644 aspirantes/striderx2.md
+
+New pull request -_> en GitHub
+
+3. ACTUALIZANDO NUESTRO FORK - TEORÍA
+$ git remote add upstream <repo original>
+
+4. ACTUALIZANDO NUESTRO FORK - PRÁCTICA
+$ git fetch upstream https://github.com/shaila13/legion-del-mal.git
+$ git pull upstream master
+
+11. RAMA DE PRODUCCIÓN - GITHUB
+$ git checkout -b rama-capitan-loco
+
+Hacemos cambios en el programa!!
+
+$ git commit -am "El capi se volvió loco y ahora es malo"
+$ git push origin rama-capitan-loco
+$ git tag v1.0.1 -m "Arreglo en caliente"
+$ git push --tag
+
+Hacemos cambios en el programa!!
+
+$ git commit -am "El capi se volvió bueno"
+$ git push origin rama-capitan-loco
+$ git branch -a
+$ git checkout master
+$ git branch -D rama-capitan-loco
+$ git push origin :rama-capitan-loco
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

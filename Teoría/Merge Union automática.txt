@@ -1,0 +1,102 @@
+3. MERGE: UNION AUTOMÁTICA
+
+Creamos una nueva rama y moverme a ella directamente
+ --> $ git checkout -b rama-villano
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+$ git checkout -b rama-villano
+Switched to a new branch 'rama-villano'
+
+Creamos en villanos.md otro villano
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (rama-villano)
+$ git status -sb
+## rama-villano
+ M villanos.md
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (rama-villano)
+$ git commit -am "Agregamos a Dooms"
+[rama-villano 2131f8d] Agregamos a Dooms
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (rama-villano)
+$ git status -sb
+## rama-villano
+
+Nos movemos a la rama master y comprobamos que en villanos.md no se nos ha creado el villano
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (rama-villano)
+$ git checkout master
+Switched to branch 'master'
+
+Vamos a heroes.md y nos damos cuenta que Dardevil no debe ir ahí, lo quitamos
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+$ git status -sb
+## master
+ M heroes.md
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+$ git commit -am "Borramos a los heroes que no son de DC"
+[master 90a4819] Borramos a los heroes que no son de DC
+ 1 file changed, 1 deletion(-)
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+$ git status -sb
+## master
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+$ git lg
+* 90a4819 (HEAD -> master) Borramos a los heroes que no son de DC
+| * 2131f8d (rama-villano) Agregamos a Dooms
+|/
+* f155310 Agregamos a flash reverso
+* 92fc95d Agregando villanos
+* 1b371b5 Agregando gitignore
+* 0634358 Borramos la historia de batman
+* bb469a9 Cambiamos el nombre de la historia de superman
+* ba92f4b Borrando archivo salvar-mundo.txt
+* e4edd2e Renombrando archivo a salvar-mundo.txt
+* f5d0c8f Creando el archivo destruir el mundo
+* 129214a Agregamos a Linterna Verde y a Robin
+* dbfc8bc Editamos el README
+* 1580dde Agregamos las historias de los heroes
+* 696a56f Agregamos las ciudades
+* e235b6f Agregamos los heroes
+* 36a5061 Agregamos las misiones
+* dec0015 Se agrego el archivo README
+
+Vamos a unir las ramas, como ya estamos en MASTER procedemos a unirlas
+$ git merge rama-villano
+Nos abre otra consola en la que nos dice que hay que meter un commit 
+message to explain why this merge is necessary --> si no queremos modificar el que 
+viene por defecto :wq
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+$ git merge rama-villano
+Merge made by the 'recursive' strategy.
+ villanos.md | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+shperez@LES005475 MINGW64 ~/Desktop/Curso Git/demo-04 (master)
+$ git lg
+*   97d43db (HEAD -> master) Merge branch 'rama-villano'
+|\
+| * 2131f8d (rama-villano) Agregamos a Dooms
+* | 90a4819 Borramos a los heroes que no son de DC
+|/
+* f155310 Agregamos a flash reverso
+* 92fc95d Agregando villanos
+* 1b371b5 Agregando gitignore
+* 0634358 Borramos la historia de batman
+* bb469a9 Cambiamos el nombre de la historia de superman
+* ba92f4b Borrando archivo salvar-mundo.txt
+* e4edd2e Renombrando archivo a salvar-mundo.txt
+* f5d0c8f Creando el archivo destruir el mundo
+* 129214a Agregamos a Linterna Verde y a Robin
+* dbfc8bc Editamos el README
+* 1580dde Agregamos las historias de los heroes
+* 696a56f Agregamos las ciudades
+* e235b6f Agregamos los heroes
+* 36a5061 Agregamos las misiones
+* dec0015 Se agrego el archivo README
+
